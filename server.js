@@ -81,20 +81,12 @@ app.get("/cep/:cep", async (req, res) => {
   res.json(response.data);
 });
 
-// Buscar clima
-app.get("/clima/:cidade", async (req, res) => {
-  const cidade = req.params.cidade;
+app.get("/clima/:cidade", (req, res) => {
+  // Simulação simples de clima
+  const climas = ["céu limpo", "chuva", "nublado", "sol"];
 
-  const API_KEY = "SUA_CHAVE_AQUI";
+  const climaAleatorio = climas[Math.floor(Math.random() * climas.length)];
 
-  const response = await axios.get(
-    `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${API_KEY}&lang=pt_br`
-  );
-
-  res.json(response.data.weather[0]);
+  res.json({ description: climaAleatorio });
 });
 
-// Iniciar servidor
-app.listen(3000, () => {
-  console.log("Servidor rodando em http://localhost:3000");
-});
